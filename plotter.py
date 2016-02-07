@@ -24,7 +24,9 @@ STANDARD = {
         'alpha': 1
     },
     'boost': {
-        'file': './resources/arena_boost.png',
+        'file': '{}/resources/arena_boost.png'.format(
+            os.path.dirname(os.path.realpath(__file__))
+        ),
         'alpha': 1
     },
     'xmin': -5770,
