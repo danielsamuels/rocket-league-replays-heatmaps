@@ -9,11 +9,11 @@ from matplotlib.figure import Figure
 
 logger = logging.getLogger('pyrain')
 
-STANDARD = {'outline': {'file': 'resources/arena_outline.png',
+STANDARD = {'outline': {'file': './resources/arena_outline.png',
                         'alpha': 1},
-            'fieldline': {'file': 'resources/arena_fieldlines.png',
+            'fieldline': {'file': './resources/arena_fieldlines.png',
                           'alpha': 1},
-            'boost': {'file': 'resources/arena_boost.png',
+            'boost': {'file': './resources/arena_boost.png',
                       'alpha': 1},
             'xmin': -5770,
             'xmax': 5770,
@@ -21,9 +21,9 @@ STANDARD = {'outline': {'file': 'resources/arena_outline.png',
             'ymax': 4096,
             'aspect': 0.71}
 
-WASTELAND = {'outline': {'file': 'resources/wasteland_outline.png',
+WASTELAND = {'outline': {'file': './resources/wasteland_outline.png',
                          'alpha': 0.8},
-             'fieldline': {'file': 'resources/wasteland_fieldlines.png',
+             'fieldline': {'file': './resources/wasteland_fieldlines.png',
                            'alpha': 0.3},
              'xmin': -5980,
              'xmax': 5980,
