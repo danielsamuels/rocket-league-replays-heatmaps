@@ -1,6 +1,7 @@
 import json
 import math
 import sys
+import uuid
 
 import analyser
 import plotter
@@ -65,7 +66,7 @@ for player in replay_analyser.player_data.keys():
 
     filename = '/tmp/{}-{}.png'.format(
         replay_id,
-        player
+        uuid.uuid4()
     )
 
     fig = FigureCanvas(plot)
