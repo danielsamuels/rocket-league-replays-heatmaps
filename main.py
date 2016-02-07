@@ -48,7 +48,7 @@ interpolate = True if 'Blur' in plot_type else False
 scale = 4.5
 bins = (math.ceil(scale * 15), math.ceil(scale * 15 * arena['aspect']))
 
-files = []
+files = {}
 for player in replay_analyser.player_data.keys():
     datasets = _extract_data(replay, replay_analyser, player)
 
@@ -71,8 +71,6 @@ for player in replay_analyser.player_data.keys():
 
     fig = FigureCanvas(plot)
     fig.print_png(filename, transparent=True)
-    files.append({
-        player: filename
-    })
+    files[player] = filename
 
 print(json.dumps(files))
