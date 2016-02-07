@@ -1,4 +1,5 @@
 import logging
+import os
 from itertools import chain
 
 import matplotlib.pyplot as plt
@@ -9,27 +10,49 @@ from matplotlib.figure import Figure
 
 logger = logging.getLogger('pyrain')
 
-STANDARD = {'outline': {'file': './resources/arena_outline.png',
-                        'alpha': 1},
-            'fieldline': {'file': './resources/arena_fieldlines.png',
-                          'alpha': 1},
-            'boost': {'file': './resources/arena_boost.png',
-                      'alpha': 1},
-            'xmin': -5770,
-            'xmax': 5770,
-            'ymin': -4096,
-            'ymax': 4096,
-            'aspect': 0.71}
+STANDARD = {
+    'outline': {
+        'file': '{}/resources/arena_outline.png'.format(
+            os.path.dirname(os.path.realpath(__file__))
+        ),
+        'alpha': 1
+    },
+    'fieldline': {
+        'file': '{}/resources/arena_fieldlines.png'.format(
+            os.path.dirname(os.path.realpath(__file__))
+        ),
+        'alpha': 1
+    },
+    'boost': {
+        'file': './resources/arena_boost.png',
+        'alpha': 1
+    },
+    'xmin': -5770,
+    'xmax': 5770,
+    'ymin': -4096,
+    'ymax': 4096,
+    'aspect': 0.71
+}
 
-WASTELAND = {'outline': {'file': './resources/wasteland_outline.png',
-                         'alpha': 0.8},
-             'fieldline': {'file': './resources/wasteland_fieldlines.png',
-                           'alpha': 0.3},
-             'xmin': -5980,
-             'xmax': 5980,
-             'ymin': -4530,
-             'ymax': 4530,
-             'aspect': 0.76}
+WASTELAND = {
+    'outline': {
+        'file': '{}/resources/wasteland_outline.png'.format(
+            os.path.dirname(os.path.realpath(__file__))
+        ),
+        'alpha': 0.8
+     },
+    'fieldline': {
+        'file': '{}/resources/wasteland_fieldlines.png'.format(
+            os.path.dirname(os.path.realpath(__file__))
+        ),
+        'alpha': 0.3
+    },
+    'xmin': -5980,
+    'xmax': 5980,
+    'ymin': -4530,
+    'ymax': 4530,
+    'aspect': 0.76
+}
 
 BOOST = 'boost'
 OUTLINE = 'outline'
