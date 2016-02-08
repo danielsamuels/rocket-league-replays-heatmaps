@@ -1,6 +1,7 @@
 import json
 import math
 import sys
+import urllib.request
 import uuid
 
 import analyser
@@ -8,7 +9,19 @@ import plotter
 from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 from pyrope import Replay
 
-replay = Replay(path=sys.argv[1])
+# Download the replay file.
+if sys.argv[1].startswith('/var/www/rocket_league_media/'):
+    # /var/www/rocket_league_media/uploads/replay_files/AF2161A04845ABAAE48669986FE1F5B6.replay
+    # https://www.rocketleaguereplays.com/media/uploads/replay_files/AF2161A04845ABAAE48669986FE1F5B6.replay
+
+    # Download the file from `url`, save it in a temporary directory and get the
+    # path to it (e.g. '/tmp/tmpb48zma.txt') in the `file_path` variable:
+    url = sys.argv[1].replace('/var/www/rocket_league_', 'https://www.rocketleaguereplays.com/')
+    file_path, _ = urllib.request.urlretrieve(url)
+else:
+    file_path = sys.argv[1]
+
+replay = Replay(path=file_path)
 replay_id = replay.header['Id']
 replay.parse_netstream()
 
