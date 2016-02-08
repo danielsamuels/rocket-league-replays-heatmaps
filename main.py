@@ -26,7 +26,7 @@ if sys.argv[1].startswith('/var/www/rocket_league_media/'):
     r = requests.get(url, headers=headers)
     f = tempfile.TemporaryFile('wb')
 
-    f.write(r.read())
+    f.write(r.content)
     f.seek(0)
 
     file_path = f.name
