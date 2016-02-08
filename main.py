@@ -1,11 +1,12 @@
 import json
 import math
 import sys
-import urllib.request
+import tempfile
 import uuid
 
 import analyser
 import plotter
+import requests
 from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 from pyrope import Replay
 
@@ -17,7 +18,18 @@ if sys.argv[1].startswith('/var/www/rocket_league_media/'):
     # Download the file from `url`, save it in a temporary directory and get the
     # path to it (e.g. '/tmp/tmpb48zma.txt') in the `file_path` variable:
     url = sys.argv[1].replace('/var/www/rocket_league_', 'https://www.rocketleaguereplays.com/')
-    file_path, _ = urllib.request.urlretrieve(url)
+
+    user_agent = 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.9.0.7) Gecko/2009021910 Firefox/3.0.7'
+    headers = {
+        'user-agent': user_agent
+    }
+    r = requests.get(url, headers=headers)
+    f = tempfile.TemporaryFile('wb')
+
+    f.write(r.read())
+    f.seek(0)
+
+    file_path = f.name
 else:
     file_path = sys.argv[1]
 
