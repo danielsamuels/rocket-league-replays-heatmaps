@@ -42,7 +42,7 @@ WASTELAND = {
             os.path.dirname(os.path.realpath(__file__))
         ),
         'alpha': 0.8
-     },
+    },
     'fieldline': {
         'file': '{}/resources/wasteland_fieldlines.png'.format(
             os.path.dirname(os.path.realpath(__file__))
@@ -92,71 +92,53 @@ def generate_figure(data, arena, overlays=None, bins=(25, 12), hexbin=False, int
                     norm=False):
     fig = Figure()
     ax = fig.add_subplot(111)
+
     x = data['x']
     y = data['y']
+
     logger.info("Building Heatmap %s with %d Data Points" % (data['title_short'], len(x)))
     cmap = plt.cm.get_cmap('jet')
-    cmap.set_bad((0, 0, 0.5))
     norm = LogNorm() if norm else None
-    if hexbin:
-        ax.hexbin(
-            x,
-            y,
-            cmap=cmap,
-            gridsize=bins,
-            norm=norm,
-            extent=[
-                arena['xmin'],
-                arena['xmax'],
 
-                arena['ymin'],
-                arena['ymax']
-            ]
-        )
-    else:
-        interpolate = 'bilinear' if interpolate else 'none'
-        bins = (bins[1], bins[0])
-        heatmap, xedges, yedges = np.histogram2d(
-            y,
-            x,
-            bins=bins,
-            range=[
-                (arena['ymin'], arena['ymax']),
-                (arena['xmin'], arena['xmax'])
-            ])
-        extent = [yedges[0], yedges[-1], xedges[0], xedges[-1]]
-        ax.imshow(
-            heatmap,
-            extent=extent,
-            norm=norm,
-            cmap=cmap,
-            interpolation=interpolate,
-            origin='lower',
-            aspect='auto')
-        ax.autoscale(False)
+    interpolate = 'bilinear' if interpolate else 'none'
+    bins = (bins[1], bins[0])
+    heatmap, xedges, yedges = np.histogram2d(
+        y,
+        x,
+        bins=bins,
+        range=[
+            (arena['ymin'], arena['ymax']),
+            (arena['xmin'], arena['xmax'])
+        ]
+    )
+
+    extent = [yedges[0], yedges[-1], xedges[0], xedges[-1]]
+
+    ax.imshow(
+        heatmap,
+        extent=extent,
+        norm=norm,
+        cmap=cmap,
+        interpolation=interpolate,
+        origin='lower',
+        aspect='auto'
+    )
+    ax.autoscale(False)
+
     if overlays:
         for overlay in overlays:
             im = plt.imread(arena[overlay]['file'])
-            axi = ax.imshow(im, origin='lower', aspect='auto', alpha=arena[overlay]['alpha'],
-                            extent=[arena['xmin'], arena['xmax'], arena['ymin'], arena['ymax']])
-            axi.set_zorder(2)
+            axi = ax.imshow(
+                im,
+                origin='lower',
+                aspect='auto',
+                alpha=arena[overlay]['alpha'],
+                extent=[arena['xmin'], arena['xmax'], arena['ymin'], arena['ymax']]
+            )
+            axi.set_zorder(-1)
 
-    # ax.text(0.1, 0, 'Team 0',
-    #         transform=ax.transAxes,
-    #         bbox=dict(facecolor='white'))
-    # ax.text(0.9, 0, 'Team 1',
-    #         horizontalalignment='right',
-    #         transform=ax.transAxes,
-    #         bbox=dict(facecolor='white'))
-
-    # pad_x = 110
-    # pad_y = arena['aspect'] * pad_x
-    # ax.set_xlim(arena['xmin'] - pad_x, arena['xmax'] + pad_x)
-    # ax.set_ylim(arena['ymin'] - pad_y, arena['ymax'] + pad_y)
-    # ax.set_title(data['title'], bbox=dict(facecolor='white'))
     ax.axis('off')
-    fig.subplots_adjust(hspace=0, wspace=0, right=1, top=0.9, bottom=0.05, left=0)
-    fig.patch.set_facecolor((0, 0, .5))
+    fig.subplots_adjust(hspace=0, wspace=0, right=1, top=1, bottom=0, left=0)
     fig.patch.set_alpha(0)
     return fig
 

@@ -66,8 +66,8 @@ else:
     arena = plotter.STANDARD
     overlays = [plotter.OUTLINE, plotter.FIELDLINE, plotter.BOOST]
 
-hexbin = True if plot_type == 'Hexbin' else False
-interpolate = True if 'Blur' in plot_type else False
+hexbin = False
+interpolate = False
 
 # 0.1 - 5
 scale = 4.5
