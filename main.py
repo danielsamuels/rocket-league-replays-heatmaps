@@ -62,6 +62,9 @@ replay_analyser = analyser.Analyser(replay)
 if 'Wasteland' in replay_analyser.replay.header['MapName']:
     arena = plotter.WASTELAND
     overlays = [plotter.OUTLINE, plotter.FIELDLINE]
+elif 'labs_utopia_p' in replay_analyser.replay.header['MapName']:
+    arena = plotter.UTOPIA_RETRO
+    overlays = [plotter.OUTLINE]
 else:
     arena = plotter.STANDARD
     overlays = [plotter.OUTLINE, plotter.FIELDLINE, plotter.BOOST]

@@ -56,6 +56,21 @@ WASTELAND = {
     'aspect': 0.76
 }
 
+UTOPIA_RETRO = {
+    'outline': {
+        'file': '{}/resources/utopia_retro_outline.png'.format(
+            os.path.dirname(os.path.realpath(__file__))
+        ),
+        'alpha': 1,
+        'scale': 1
+    },
+    'xmin': -4096,
+    'xmax': 4096,
+    'ymin': -4096,
+    'ymax': 4096,
+    'aspect': 1,
+}
+
 BOOST = 'boost'
 OUTLINE = 'outline'
 FIELDLINE = 'fieldline'
@@ -131,7 +146,7 @@ def generate_figure(data, arena, overlays=None, bins=(25, 12), hexbin=False, int
             axi = ax.imshow(
                 im,
                 origin='lower',
-                aspect='auto',
+                aspect=arena[overlay].get('scale', 'auto'),
                 alpha=arena[overlay]['alpha'],
                 extent=[arena['xmin'], arena['xmax'], arena['ymin'], arena['ymax']]
             )
