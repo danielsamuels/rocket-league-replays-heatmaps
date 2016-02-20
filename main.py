@@ -37,6 +37,8 @@ elif sys.argv[1].startswith('http'):
 
     f.write(r.content)
     f.seek(0)
+
+    file_path = f.name
 else:
     file_path = sys.argv[1]
 
