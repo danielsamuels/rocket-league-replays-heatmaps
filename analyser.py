@@ -62,12 +62,14 @@ class Analyser:
             for i in range(actor['join'], actor['left']+1):
                 frame = self.replay.netstream[i]
                 found_pos = False
+
                 for f_actor in frame.actors.values():
                     try:
                         if f_actor['data']['Engine.Pawn:PlayerReplicationInfo'][1] == actor['id']:
                             current_car = f_actor['actor_id']
                     except KeyError:
                         pass
+
                     if f_actor['actor_id'] == current_car:
                         try:
                             pos = f_actor['data']['TAGame.RBActor_TA:ReplicatedRBState']['pos']
@@ -78,6 +80,7 @@ class Analyser:
                                 frame_entered = i
                         except KeyError:
                             pass
+
                 if not found_pos and player_spawned:
                     car_actors.append(car_actors[-1])
                 try:
