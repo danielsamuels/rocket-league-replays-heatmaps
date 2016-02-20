@@ -11,6 +11,11 @@ from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 from pyrope import Replay
 
 # Download the replay file.
+user_agent = 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.9.0.7) Gecko/2009021910 Firefox/3.0.7'
+headers = {
+    'user-agent': user_agent
+}
+
 if sys.argv[1].startswith('/var/www/rocket_league_media/'):
     # /var/www/rocket_league_media/uploads/replay_files/AF2161A04845ABAAE48669986FE1F5B6.replay
     # https://www.rocketleaguereplays.com/media/uploads/replay_files/AF2161A04845ABAAE48669986FE1F5B6.replay
@@ -19,10 +24,6 @@ if sys.argv[1].startswith('/var/www/rocket_league_media/'):
     # path to it (e.g. '/tmp/tmpb48zma.txt') in the `file_path` variable:
     url = sys.argv[1].replace('/var/www/rocket_league_', 'https://www.rocketleaguereplays.com/')
 
-    user_agent = 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.9.0.7) Gecko/2009021910 Firefox/3.0.7'
-    headers = {
-        'user-agent': user_agent
-    }
     r = requests.get(url, headers=headers)
     f = tempfile.TemporaryFile('wb')
 
@@ -30,6 +31,12 @@ if sys.argv[1].startswith('/var/www/rocket_league_media/'):
     f.seek(0)
 
     file_path = f.name
+elif sys.argv[1].startswith('http'):
+    r = requests.get(sys.argv[1], headers=headers)
+    f = tempfile.TemporaryFile('wb')
+
+    f.write(r.content)
+    f.seek(0)
 else:
     file_path = sys.argv[1]
 
